@@ -15,8 +15,8 @@ pipeline {
         stage('Deploy to Raspberry Pi') {
             steps {
                 // Replace with your Pi's SSH details
-                sh 'scp -r backend frontend debian@192.168.137.120:/home/debian/battery-simulator'
-                sh 'ssh debian@192.168.137.120 "cd battery-simulator && nohup ./venv/bin/python backend/app.py &"'
+                sh 'scp -r backend frontend debian@192.168.137.23:/home/debian/battery-simulator'
+                sh 'ssh debian@192.168.137.23 "cd battery-simulator && nohup ./venv/bin/python backend/app.py &"'
             }
         }
     }
