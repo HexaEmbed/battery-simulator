@@ -14,9 +14,10 @@ pipeline {
         }
         stage('Deploy to Raspberry Pi') {
             steps {
-                // Replace with your Pi's SSH details
-                sh 'scp -r backend frontend debian@192.168.137.23:/home/debian/battery-simulator'
-                sh 'ssh debian@192.168.137.23 "cd battery-simulator && nohup ./venv/bin/python backend/app.py &"'
+                sshagent(['raspberrypi-ssh']) {
+                    sh 'scp -o StrictHostKeyChecking=no -r backend frontend debian@192.168.137.23:/home/debian/battery-simulator'
+                    sh 'ssh -o StrictHostKeyChecking=no debian@192.168.137.23 "cd battery-simulator && nohup ./venv/bin/python backend/app.py &"'
+                }
             }
         }
     }
